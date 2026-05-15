@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KDigital, Weboldal & Marketing Ügynökség</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0d0f;
+    --ink-muted: #4a4a52;
+    --ink-faint: #9a9aa8;
+    --paper: #f7f6f2;
+    --paper-warm: #efede6;
+    --accent: #c8502a;
+    --accent-light: #e8a080;
+    --accent-subtle: #f5ece8;
+    --gold: #b89a5a;
+    --white: #ffffff;
+    --border: rgba(13,13,15,0.1);
+    --border-strong: rgba(13,13,15,0.18);
+    --ff-display: 'Fraunces', Georgia, serif;
+    --ff-body: 'DM Sans', sans-serif;
+    --max: 1200px;
+    --gutter: clamp(1.5rem, 5vw, 4rem);
+    --section-gap: clamp(5rem, 12vw, 10rem);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--ff-body);
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 1rem;
+    line-height: 1.65;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── TYPOGRAPHY ── */
+  .display {
+    font-family: var(--ff-display);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+  .display-italic {
+    font-family: var(--ff-display);
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  .label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .label--accent { color: var(--accent); }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+  .section { padding: var(--section-gap) 0; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.4rem var(--gutter);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(247,246,242,0.85);
+    backdrop-filter: blur(20px) saturate(150%);
+    border-bottom: 1px solid var(--border);
+    transition: all 0.3s ease;
+  }
+  .nav-logo {
+    font-family: var(--ff-display);
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+    align-items: center;
+  }
+  .nav-links a {
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.3rem;
+    background: var(--ink);
+    color: var(--paper) !important;
+    border-radius: 100px;
+    font-size: 0.825rem !important;
+    font-weight: 500 !important;
+    transition: background 0.2s, transform 0.15s !important;
+  }
+  .nav-cta:hover { background: var(--accent) !important; color: var(--white) !important; transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-top: 6rem;
+    padding-bottom: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 60% at 75% 40%, rgba(200,80,42,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 70%, rgba(184,154,90,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-grid-lines {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 80%);
+    opacity: 0.4;
+    pointer-events: none;
+  }
+  .hero-content { position: relative; z-index: 2; }
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.1s forwards;
+  }
+  .hero-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s ease infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+  .hero-title {
+    font-size: clamp(3.2rem, 8vw, 8rem);
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.25s forwards;
+  }
+  .hero-title em {
+    color: var(--accent);
+    font-style: italic;
+    font-weight: 300;
+  }
+  .hero-sub {
+    font-size: clamp(1rem, 2.2vw, 1.3rem);
+    color: var(--ink-muted);
+    max-width: 580px;
+    margin-bottom: 3rem;
+    font-weight: 300;
+    line-height: 1.6;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.4s forwards;
+  }
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.55s forwards;
+  }
+  .hero-stats {
+    margin-top: 5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.7s forwards;
+  }
+  .stat-item { }
+  .stat-num {
+    font-family: var(--ff-display);
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+  .stat-label { font-size: 0.8rem; color: var(--ink-muted); margin-top: 0.3rem; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── BUTTONS ── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--ff-body);
+    font-weight: 500;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+  }
+  .btn-primary {
+    padding: 0.9rem 2rem;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 100px;
+  }
+  .btn-primary:hover {
+    background: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(200,80,42,0.25);
+  }
+  .btn-ghost {
+    padding: 0.9rem 1.5rem;
+    background: transparent;
+    color: var(--ink-muted);
+    border-radius: 100px;
+    border: 1px solid var(--border-strong);
+  }
+  .btn-ghost:hover {
+    color: var(--ink);
+    border-color: var(--ink);
+    background: var(--white);
+  }
+  .btn-arrow::after { content: " →"; }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    margin-bottom: clamp(3rem, 6vw, 5rem);
+  }
+  .section-header.centered { text-align: center; }
+  .section-title {
+    font-size: clamp(2.4rem, 5vw, 4.2rem);
+    margin-top: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  .section-desc {
+    font-size: 1.05rem;
+    color: var(--ink-muted);
+    max-width: 520px;
+    line-height: 1.7;
+  }
+  .section-header.centered .section-desc { margin: 0 auto; }
+
+  /* ── SERVICES ── */
+  .services-bg { background: var(--ink); color: var(--paper); }
+  .services-bg .label { color: rgba(247,246,242,0.4); }
+  .services-bg .section-title { color: var(--paper); }
+  .services-bg .section-desc { color: rgba(247,246,242,0.55); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .service-card {
+    background: #151518;
+    padding: 2.5rem 2.2rem 3rem;
+    display: flex;
+    flex-direction: column;
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .service-card:hover { background: #1c1c20; }
+  .service-card:hover::before { opacity: 1; }
+  .service-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    background: rgba(255,255,255,0.04);
+    transition: border-color 0.3s;
+  }
+  .service-card:hover .service-icon { border-color: var(--accent); }
+  .service-name {
+    font-family: var(--ff-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--paper);
+    margin-bottom: 0.75rem;
+  }
+  .service-desc {
+    font-size: 0.9rem;
+    color: rgba(247,246,242,0.5);
+    line-height: 1.7;
+    flex: 1;
+    margin-bottom: 2rem;
+  }
+  .service-outcome {
+    font-size: 0.82rem;
+    color: var(--accent-light);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    line-height: 1.5;
+  }
+  .service-outcome::before { content: "↳"; opacity: 0.7; flex-shrink: 0; }
+  .service-price-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    gap: 1rem;
+  }
+  .service-price-label { font-size: 0.72rem; color: rgba(247,246,242,0.3); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.3rem; }
+  .service-price {
+    font-family: var(--ff-display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--paper);
+    letter-spacing: -0.03em;
+  }
+  .service-price span { font-size: 0.85rem; font-weight: 300; color: rgba(247,246,242,0.45); }
+  .service-link {
+    font-size: 0.82rem;
+    color: rgba(247,246,242,0.35);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding-bottom: 0.2rem;
+    border-bottom: 1px solid rgba(247,246,242,0.15);
+  }
+  .service-link:hover { color: var(--accent-light); border-bottom-color: var(--accent-light); }
+
+  /* Marketing sub-services */
+  .marketing-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.5rem;
+  }
+  .tag {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.7rem;
+    border-radius: 100px;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: rgba(247,246,242,0.4);
+  }
+
+  /* ── WHY US ── */
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem 6rem;
+    align-items: start;
+  }
+  .why-left { }
+  .why-right { padding-top: 1rem; }
+  .why-features { display: flex; flex-direction: column; gap: 0; }
+  .why-feature {
+    padding: 1.8rem 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    cursor: default;
+    transition: background 0.2s;
+  }
+  .why-feature:first-child { border-top: 1px solid var(--border); }
+  .why-num {
+    font-family: var(--ff-display);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent);
+    min-width: 24px;
+    padding-top: 0.1rem;
+  }
+  .why-feature-title {
+    font-family: var(--ff-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.4rem;
+  }
+  .why-feature-desc { font-size: 0.9rem; color: var(--ink-muted); line-height: 1.65; }
+  .why-visual {
+    background: var(--paper-warm);
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    border: 1px solid var(--border);
+    position: sticky;
+    top: 6rem;
+  }
+  .metric-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 0.75rem;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .metric-card:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+  .metric-card:last-child { margin-bottom: 0; }
+  .metric-label { font-size: 0.8rem; color: var(--ink-muted); }
+  .metric-val {
+    font-family: var(--ff-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+  .metric-change {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.2rem 0.6rem;
+    border-radius: 100px;
+  }
+  .metric-change.up { background: #ecfdf5; color: #15803d; }
+  .metric-change.neutral { background: #fef3c7; color: #92400e; }
+
+  /* ── PROCESS ── */
+  .process-bg { background: var(--paper-warm); }
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    background: var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .process-step {
+    background: var(--paper);
+    padding: 2.5rem 1.8rem;
+    position: relative;
+    transition: background 0.2s;
+  }
+  .process-step:hover { background: var(--white); }
+  .step-num {
+    font-family: var(--ff-display);
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    color: var(--border);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    transition: color 0.2s;
+  }
+  .process-step:hover .step-num { color: rgba(200,80,42,0.15); }
+  .step-title {
+    font-family: var(--ff-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.6rem;
+  }
+  .step-desc { font-size: 0.875rem; color: var(--ink-muted); line-height: 1.65; }
+  .step-duration {
+    margin-top: 1.5rem;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .step-duration::before { content: "◉"; font-size: 0.5rem; }
+
+  /* ── RESULTS ── */
+  .results-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .result-big {
+    grid-column: 1 / -1;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 16px;
+    padding: 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+  }
+  .big-stat { }
+  .big-stat-num {
+    font-family: var(--ff-display);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    color: var(--paper);
+    line-height: 1;
+  }
+  .big-stat-num em { color: var(--accent); font-style: normal; }
+  .big-stat-label { font-size: 0.85rem; color: rgba(247,246,242,0.5); margin-top: 0.5rem; line-height: 1.5; }
+  .testimonial-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: box-shadow 0.2s;
+  }
+  .testimonial-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.07); }
+  .testimonial-text {
+    font-family: var(--ff-display);
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--ink);
+    font-weight: 300;
+  }
+  .testimonial-author { display: flex; align-items: center; gap: 0.75rem; }
+  .author-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--paper-warm);
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    font-family: var(--ff-display);
+  }
+  .author-name { font-weight: 500; font-size: 0.9rem; }
+  .author-title { font-size: 0.78rem; color: var(--ink-faint); }
+  .stars { color: var(--gold); font-size: 0.75rem; letter-spacing: 0.05em; }
+
+  /* ── PRICING ── */
+  .pricing-bg { background: var(--paper-warm); }
+  .pricing-intro {
+    max-width: 640px;
+    margin-bottom: 3.5rem;
+  }
+  .pricing-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .pricing-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem 1.8rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    position: relative;
+  }
+  .pricing-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.08);
+    border-color: var(--accent);
+  }
+  .pricing-card.featured {
+    background: var(--ink);
+    border-color: transparent;
+    color: var(--paper);
+  }
+  .pricing-card.featured:hover { border-color: var(--accent); }
+  .featured-badge {
+    position: absolute;
+    top: -0.6rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: var(--white);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.8rem;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+  .pricing-cat {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.5rem;
+  }
+  .pricing-card.featured .pricing-cat { color: rgba(247,246,242,0.35); }
+  .pricing-name {
+    font-family: var(--ff-display);
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.3rem;
+  }
+  .pricing-card.featured .pricing-name { color: var(--paper); }
+  .pricing-tagline { font-size: 0.85rem; color: var(--ink-muted); margin-bottom: 2rem; line-height: 1.5; }
+  .pricing-card.featured .pricing-tagline { color: rgba(247,246,242,0.5); }
+  .pricing-price-block {
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1.8rem;
+  }
+  .pricing-card.featured .pricing-price-block {
+    border-color: rgba(255,255,255,0.1);
+  }
+  .pricing-from { font-size: 0.75rem; color: var(--ink-faint); margin-bottom: 0.3rem; }
+  .pricing-card.featured .pricing-from { color: rgba(247,246,242,0.35); }
+  .pricing-amount {
+    font-family: var(--ff-display);
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .pricing-card.featured .pricing-amount { color: var(--paper); }
+  .pricing-amount .currency { font-size: 1.2rem; font-weight: 400; }
+  .pricing-amount .period { font-size: 0.85rem; font-weight: 300; color: var(--ink-faint); }
+  .pricing-card.featured .pricing-amount .period { color: rgba(247,246,242,0.4); }
+  .pricing-includes { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 2rem; flex: 1; }
+  .pricing-includes li { font-size: 0.875rem; color: var(--ink-muted); display: flex; align-items: flex-start; gap: 0.6rem; line-height: 1.4; }
+  .pricing-card.featured .pricing-includes li { color: rgba(247,246,242,0.6); }
+  .pricing-includes li::before { content: "✓"; color: var(--accent); font-weight: 600; flex-shrink: 0; }
+  .btn-pricing-primary {
+    display: block;
+    text-align: center;
+    padding: 0.9rem 1.5rem;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 100px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    font-family: var(--ff-body);
+    transition: all 0.2s;
+  }
+  .btn-pricing-primary:hover { background: var(--accent); }
+  .pricing-card.featured .btn-pricing-primary {
+    background: var(--accent);
+    color: var(--white);
+  }
+  .pricing-card.featured .btn-pricing-primary:hover { background: #b8441e; }
+  .pricing-note {
+    margin-top: 2rem;
+    font-size: 0.82rem;
+    color: var(--ink-faint);
+    text-align: center;
+  }
+
+  /* ── TECH STACK ── */
+  .tech-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.5rem;
+  }
+  .tech-pill {
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    border: 1px solid var(--border-strong);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+    background: var(--white);
+    transition: all 0.2s;
+  }
+  .tech-pill:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .tech-pill.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+  /* ── FINAL CTA ── */
+  .cta-section {
+    background: var(--ink);
+    color: var(--paper);
+    text-align: center;
+    padding: 7rem var(--gutter);
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 50% 100%, rgba(200,80,42,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-content { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; }
+  .cta-title {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    color: var(--paper);
+    margin-bottom: 1.2rem;
+  }
+  .cta-title em { color: var(--accent); }
+  .cta-sub { font-size: 1.05rem; color: rgba(247,246,242,0.55); margin-bottom: 2.5rem; line-height: 1.65; }
+  .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-cta-primary {
+    padding: 1rem 2.2rem;
+    background: var(--accent);
+    color: var(--white);
+    border-radius: 100px;
+    text-decoration: none;
+    font-weight: 500;
+    font-family: var(--ff-body);
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.2s;
+  }
+  .btn-cta-primary:hover { background: #b8441e; transform: translateY(-2px); box-shadow: 0 10px 32px rgba(200,80,42,0.35); }
+  .btn-cta-ghost {
+    padding: 1rem 2rem;
+    background: transparent;
+    color: rgba(247,246,242,0.7);
+    border: 1px solid rgba(247,246,242,0.2);
+    border-radius: 100px;
+    text-decoration: none;
+    font-weight: 400;
+    font-family: var(--ff-body);
+    font-size: 1rem;
+    transition: all 0.2s;
+  }
+  .btn-cta-ghost:hover { border-color: rgba(247,246,242,0.5); color: var(--paper); }
+  .cta-contact-info {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(247,246,242,0.08);
+    display: flex;
+    gap: 2.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .contact-item {
+    font-size: 0.85rem;
+    color: rgba(247,246,242,0.4);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .contact-item a { color: rgba(247,246,242,0.6); text-decoration: none; transition: color 0.2s; }
+  .contact-item a:hover { color: var(--paper); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #08080a;
+    color: rgba(247,246,242,0.3);
+    padding: 2rem var(--gutter);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+  }
+  footer .nav-logo { color: rgba(247,246,242,0.5); font-size: 1rem; }
+  footer .nav-logo span { color: var(--accent); }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 40px;
+    height: 2px;
+    background: var(--accent);
+    margin: 1rem 0 1.5rem;
+    border-radius: 2px;
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: 1fr; }
+    .why-visual { position: static; margin-bottom: 2rem; order: -1; }
+    .process-steps { grid-template-columns: 1fr 1fr; }
+    .results-grid { grid-template-columns: 1fr; }
+    .result-big { grid-template-columns: 1fr 1fr; }
+    .pricing-cards { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+  @media (max-width: 600px) {
+    .process-steps { grid-template-columns: 1fr; }
+    .result-big { grid-template-columns: 1fr; gap: 1.5rem; padding: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">KDigital<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Szolgáltatások</a></li>
+    <li><a href="#process">Folyamat</a></li>
+    <li><a href="#results">Eredmények</a></li>
+    <li><a href="#pricing">Árak</a></li>
+    <li><a href="#contact" class="nav-cta">Ajánlatkérés</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero section">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="container hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-dot"></div>
+      <span class="label label--accent">Digitális ügynökség</span>
+    </div>
+    <h1 class="display hero-title">
+      Weboldal és marketing,<br>
+      ami <em>valóban</em> eredményt hoz.
+    </h1>
+    <p class="hero-sub">
+      Nem sablon-megoldásokat gyártunk. Stratégiailag felépített weboldalakat, webshopokat és marketing-rendszereket tervezünk, az üzleti növekedésedet szem előtt tartva.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-primary btn-arrow">Ingyenes konzultáció</a>
+      <a href="#services" class="btn btn-ghost">Szolgáltatásaink →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">120+</div>
+        <div class="stat-label">Lezárt projekt</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3,4×</div>
+        <div class="stat-label">Átlagos ROAS növekedés</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">97%</div>
+        <div class="stat-label">Ügyfél-elégedettség</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">8 év</div>
+        <div class="stat-label">Iparági tapasztalat</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section services-bg" id="services">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="label">Szolgáltatások</span>
+      <h2 class="display section-title">Minden, ami a digitális növekedéshez kell.</h2>
+      <p class="section-desc">Nem listaszerű funkciókban gondolkodunk, hanem abban, hogy mi változik az üzletedben, ha velünk dolgozol.</p>
+    </div>
+    <div class="services-grid reveal">
+
+      <!-- Weboldal -->
+      <div class="service-card">
+        <div class="service-icon">⬡</div>
+        <div class="service-name">Weboldal készítés</div>
+        <p class="service-desc">
+          Gyors, SEO-barát, konverziófókuszú weboldalak, modern technológiával, a te célközönségedre optimalizálva. Nincs felesleges sablon, nincs PageBuilder-korlát.
+        </p>
+        <div class="service-outcome">
+          A látogatók megértik az ajánlatodat, és továbblépnek, nem bezárják az oldalt.
+        </div>
+        <div class="service-price-row">
+          <div>
+            <div class="service-price-label">Induló ártól</div>
+            <div class="service-price">290 000 <span>Ft-tól</span></div>
+          </div>
+          <a href="#contact" class="service-link">Részletek →</a>
+        </div>
+      </div>
+
+      <!-- Webshop -->
+      <div class="service-card">
+        <div class="service-icon">◈</div>
+        <div class="service-name">Webshop készítés</div>
+        <p class="service-desc">
+          Vásárlásra optimalizált, skálázható webshopok, WooCommerce vagy custom megoldással. Gyors betöltés, átgondolt UX, valódi konverziós logika.
+        </p>
+        <div class="service-outcome">
+          Kosárelhagyás csökkentése, magasabb átlagos rendelési érték, ismételt vásárlók.
+        </div>
+        <div class="service-price-row">
+          <div>
+            <div class="service-price-label">Induló ártól</div>
+            <div class="service-price">490 000 <span>Ft-tól</span></div>
+          </div>
+          <a href="#contact" class="service-link">Részletek →</a>
+        </div>
+      </div>
+
+      <!-- Marketing -->
+      <div class="service-card">
+        <div class="service-icon">◎</div>
+        <div class="service-name">Online marketing</div>
+        <div class="marketing-tags">
+          <span class="tag">Google Ads</span>
+          <span class="tag">Meta Ads</span>
+          <span class="tag">SEO</span>
+          <span class="tag">Email</span>
+          <span class="tag">CRO</span>
+        </div>
+        <p class="service-desc">
+          Teljesítményalapú marketing, ahol minden forint megtérülése követhető. Adatvezérelt döntések, nem megérzések, folyamatos optimalizálással.
+        </p>
+        <div class="service-outcome">
+          Mérhetően több bevétel ugyanolyan, vagy alacsonyabb, büdzséből.
+        </div>
+        <div class="service-price-row">
+          <div>
+            <div class="service-price-label">Havi díjtól</div>
+            <div class="service-price">120 000 <span>Ft/hó-tól</span></div>
+          </div>
+          <a href="#contact" class="service-link">Részletek →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="section" id="why">
+  <div class="container">
+    <div class="why-grid">
+      <div class="why-left reveal">
+        <span class="label">Miért mi?</span>
+        <h2 class="display section-title">Nem csak szép oldalakat csinálunk.</h2>
+        <p class="section-desc">Azt tervezzük meg, hogyan jut el a látogató a vásárlásig, az ajánlatkérésig, az átkattintásig, és ezt folyamatosan mérjük.</p>
+        <div class="divider"></div>
+        <div class="why-features">
+          <div class="why-feature">
+            <div class="why-num">01</div>
+            <div>
+              <div class="why-feature-title">Modern technológiai stack</div>
+              <p class="why-feature-desc">Next.js, Tailwind CSS, headless CMS, nem WordPress sablonok, hanem skálázható, karbantartható megoldások, amelyek 5 év múlva is gyorsan futnak.</p>
+            </div>
+          </div>
+          <div class="why-feature">
+            <div class="why-num">02</div>
+            <div>
+              <div class="why-feature-title">SEO-first szemlélet</div>
+              <p class="why-feature-desc">Az organikus forgalom hosszú távon a legolcsóbb. Minden projektet úgy indítunk, hogy Google is értse és szeresse, technikai SEO-tól a tartalomstratégiáig.</p>
+            </div>
+          </div>
+          <div class="why-feature">
+            <div class="why-num">03</div>
+            <div>
+              <div class="why-feature-title">Sebesség & Core Web Vitals</div>
+              <p class="why-feature-desc">Lassú oldal = elvesztett ügyfél. 3 másodperc felett a látogatók 53%-a elhagyja az oldalt. Nálunk a 90+ PageSpeed Score az alap, nem a cél.</p>
+            </div>
+          </div>
+          <div class="why-feature">
+            <div class="why-num">04</div>
+            <div>
+              <div class="why-feature-title">Konverziófókuszú design</div>
+              <p class="why-feature-desc">Nem esztétika alapján döntünk, adatok alapján. A/B tesztelés, heatmap elemzés, felhasználói útvonalak nyomon követése minden projektnél.</p>
+            </div>
+          </div>
+          <div class="why-feature">
+            <div class="why-num">05</div>
+            <div>
+              <div class="why-feature-title">Valódi üzleti felelősségvállalás</div>
+              <p class="why-feature-desc">Nem disappear-elünk átadás után. Hosszú távú partnerként gondolkodunk: rendszeres riportok, proaktív javaslatok, és célok, nem csak feladatok.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="why-right reveal reveal-delay-2">
+        <div class="why-visual">
+          <p class="label" style="margin-bottom:1.2rem;">Élő projekt, összefoglaló</p>
+          <div class="metric-card">
+            <div>
+              <div class="metric-label">Organikus forgalom (6 hó)</div>
+              <div class="metric-val">+284%</div>
+            </div>
+            <span class="metric-change up">↑ SEO</span>
+          </div>
+          <div class="metric-card">
+            <div>
+              <div class="metric-label">Konverziós arány</div>
+              <div class="metric-val">4,7%</div>
+            </div>
+            <span class="metric-change up">↑ 2,1%</span>
+          </div>
+          <div class="metric-card">
+            <div>
+              <div class="metric-label">Google Ads ROAS</div>
+              <div class="metric-val">4,2×</div>
+            </div>
+            <span class="metric-change up">↑ 1,8×</span>
+          </div>
+          <div class="metric-card">
+            <div>
+              <div class="metric-label">PageSpeed Score</div>
+              <div class="metric-val">96 / 100</div>
+            </div>
+            <span class="metric-change up">✓ Core</span>
+          </div>
+          <div class="metric-card">
+            <div>
+              <div class="metric-label">Bevétel növekedés (YoY)</div>
+              <div class="metric-val">+67%</div>
+            </div>
+            <span class="metric-change neutral">↑ trend</span>
+          </div>
+          <p style="font-size:0.72rem; color:var(--ink-faint); margin-top:1rem;">* Egy e-commerce ügyfél aggregált adatai, 12 hónap</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section process-bg" id="process">
+  <div class="container">
+    <div class="section-header centered reveal">
+      <span class="label">Hogyan dolgozunk</span>
+      <h2 class="display section-title">Átlátható folyamat,<br>kiszámítható eredmény.</h2>
+      <p class="section-desc">Nincs meglepetés, nincs „majd meglátjuk". Minden lépést előre megtervezünk, és egyértelműen kommunikálunk.</p>
+    </div>
+    <div class="process-steps reveal">
+      <div class="process-step">
+        <div class="step-num">01</div>
+        <div class="step-title">Stratégiai kickoff</div>
+        <p class="step-desc">Megértjük az üzleti céljaidat, a célközönségedet és a versenytársak helyzetét. Nem fejlesztünk anélkül, hogy tudnánk, miért fejlesztünk.</p>
+        <div class="step-duration">1–2 nap</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">02</div>
+        <div class="step-title">UX tervezés & wireframe</div>
+        <p class="step-desc">Felhasználói útvonalak, oldaltérkép, wireframe-ek, mielőtt egyetlen kódsor születik. Így nem a fejlesztés felénél módosítjuk a struktúrát.</p>
+        <div class="step-duration">3–7 nap</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">03</div>
+        <div class="step-title">Design & fejlesztés</div>
+        <p class="step-desc">Modern, pixelpontos design, majd gyors, optimalizált fejlesztés. Folyamatos visszajelzési körök, nem meglepetések az átadáskor.</p>
+        <div class="step-duration">2–6 hét</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">04</div>
+        <div class="step-title">Tesztelés & átadás</div>
+        <p class="step-desc">Teljes SEO-audit, sebességteszt, cross-browser ellenőrzés. Analytics és tracking setup, hogy az eredmények mérhetők legyenek az első pillanattól.</p>
+        <div class="step-duration">3–5 nap</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="section" id="results">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="label">Eredmények</span>
+      <h2 class="display section-title">Számok, amikre büszkék vagyunk.</h2>
+    </div>
+    <div class="results-grid">
+      <div class="result-big reveal">
+        <div class="big-stat">
+          <div class="big-stat-num"><em>+284%</em></div>
+          <div class="big-stat-label">organikus forgalom növekedés átlagosan 6 hónap alatt, SEO projektjeinknél</div>
+        </div>
+        <div class="big-stat">
+          <div class="big-stat-num">4,2<em>×</em></div>
+          <div class="big-stat-label">átlagos ROAS Google Ads kampányainknál az első 90 napban</div>
+        </div>
+        <div class="big-stat">
+          <div class="big-stat-num"><em>96</em>/100</div>
+          <div class="big-stat-label">átlagos PageSpeed Score az elkészült weboldalakon és webshopokban</div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-1">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">„Végre egy ügynökség, amelyik nem azt mondja, amit hallani akarok, hanem azt, amire valóban szükségem van. A webshopunk konverziója a duplájára nőtt három hónap alatt."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">KT</div>
+          <div>
+            <div class="author-name">Kovács Tamás</div>
+            <div class="author-title">Alapító, prémium lakástextil webshop</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-2">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">„A Google Ads kampányunk ROAS-a 1,8-ról 4,6-ra ugrott négy hónap alatt. Nem csak futtatják a hirdetéseket, valóban értik a piacunkat."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">SV</div>
+          <div>
+            <div class="author-name">Szabó Veronika</div>
+            <div class="author-title">Marketing vezető, B2B SaaS cég</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section pricing-bg" id="pricing">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="label">Árazás</span>
+      <h2 class="display section-title">Befektetés, nem költség.</h2>
+      <div class="pricing-intro">
+        <p class="section-desc">Az áraink az értéket tükrözik, amit nyújtunk, nem a legolcsóbb opciók vagyunk, de a legjobb megtérülésű partner lehetünk. Minden projekt árajánlattal indul, az alábbiak tájékoztató jellegűek.</p>
+      </div>
+    </div>
+    <div class="pricing-cards">
+      <!-- Weboldal -->
+      <div class="pricing-card reveal">
+        <div class="pricing-cat">Weboldal</div>
+        <div class="pricing-name">Alap webjelenlét</div>
+        <p class="pricing-tagline">5–8 oldalas, SEO-optimalizált, gyors betöltésű weboldal, kis- és középvállalkozásoknak.</p>
+        <div class="pricing-price-block">
+          <div class="pricing-from">Induló ártól</div>
+          <div class="pricing-amount"><span class="currency"></span>290 000 <span class="period">Ft</span></div>
+        </div>
+        <ul class="pricing-includes">
+          <li>Egyedi design (nem sablon)</li>
+          <li>Mobile-first, reszponzív kivitel</li>
+          <li>On-page SEO beállítás</li>
+          <li>PageSpeed 90+ garancia</li>
+          <li>Analytics & tracking integráció</li>
+          <li>30 napos garancia támogatás</li>
+        </ul>
+        <a href="#contact" class="btn-pricing-primary">Ajánlatkérés</a>
+      </div>
+
+      <!-- Webshop - featured -->
+      <div class="pricing-card featured reveal reveal-delay-1">
+        <div class="featured-badge">Legnépszerűbb</div>
+        <div class="pricing-cat">Webshop</div>
+        <div class="pricing-name">Teljes webshop</div>
+        <p class="pricing-tagline">Konverzióra optimalizált, skálázható webshop, az első eladástól a növekedési fázisig.</p>
+        <div class="pricing-price-block">
+          <div class="pricing-from">Induló ártól</div>
+          <div class="pricing-amount"><span class="currency"></span>490 000 <span class="period">Ft</span></div>
+        </div>
+        <ul class="pricing-includes">
+          <li>Egyedi UX tervezés & design</li>
+          <li>WooCommerce vagy custom megoldás</li>
+          <li>Kosároptimalizálás, upsell logika</li>
+          <li>Fizetési rendszer integráció</li>
+          <li>E-mail automáció alap setup</li>
+          <li>Sebesség & Core Web Vitals audit</li>
+          <li>60 napos garancia támogatás</li>
+        </ul>
+        <a href="#contact" class="btn-pricing-primary">Ajánlatkérés</a>
+      </div>
+
+      <!-- Marketing -->
+      <div class="pricing-card reveal reveal-delay-2">
+        <div class="pricing-cat">Online marketing</div>
+        <div class="pricing-name">Marketing csomag</div>
+        <p class="pricing-tagline">Havi rendszerességű, teljesítményalapú marketing, PPC, SEO, e-mail és konverzióoptimalizálás.</p>
+        <div class="pricing-price-block">
+          <div class="pricing-from">Havi díjtól</div>
+          <div class="pricing-amount"><span class="currency"></span>120 000 <span class="period">Ft/hó</span></div>
+        </div>
+        <ul class="pricing-includes">
+          <li>Google Ads / Meta Ads kezelés</li>
+          <li>Havi SEO aktivitás & riport</li>
+          <li>Konverziókövető optimalizálás</li>
+          <li>E-mail kampányok (opcionális)</li>
+          <li>Havi stratégiai megbeszélés</li>
+          <li>Dedikált account manager</li>
+        </ul>
+        <a href="#contact" class="btn-pricing-primary">Ajánlatkérés</a>
+      </div>
+    </div>
+    <p class="pricing-note reveal">Minden ár nettó, ÁFA nélkül értendő. Egyedi projekteknél egyedi ajánlattal dolgozunk.</p>
+
+    <!-- Tech stack -->
+    <div style="margin-top: 4rem;" class="reveal">
+      <span class="label">Technológiai stack</span>
+      <p style="margin-top: 0.5rem; color: var(--ink-muted); font-size: 0.9rem; margin-bottom: 0.5rem;">A modern web legjobb eszközei, nem elavult megoldások.</p>
+      <div class="tech-row">
+        <span class="tech-pill active">Next.js</span>
+        <span class="tech-pill active">React</span>
+        <span class="tech-pill active">Tailwind CSS</span>
+        <span class="tech-pill">Sanity CMS</span>
+        <span class="tech-pill">Contentful</span>
+        <span class="tech-pill">WooCommerce</span>
+        <span class="tech-pill">Shopify</span>
+        <span class="tech-pill">Vercel</span>
+        <span class="tech-pill">Cloudflare</span>
+        <span class="tech-pill">Google Analytics 4</span>
+        <span class="tech-pill">Hotjar</span>
+        <span class="tech-pill">Klaviyo</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta-section" id="contact">
+  <div class="cta-bg"></div>
+  <div class="cta-content">
+    <span class="label" style="color:rgba(247,246,242,0.35); display:block; margin-bottom:1rem;">Következő lépés</span>
+    <h2 class="display cta-title">Kész a következő<br><em>szintre lépni?</em></h2>
+    <p class="cta-sub">
+      Az első konzultáció ingyenes és kötelezettségmentes. Megbeszéljük a céljaidat, és őszintén elmondjuk, miben tudunk, és miben nem, segíteni.
+    </p>
+    <div class="cta-actions">
+      <a href="mailto:david.kalauz@gmail.com" class="btn-cta-primary">Ingyenes konzultáció kérése →</a>
+      <a href="tel:+36704282981" class="btn-cta-ghost">+36 70 428 2981</a>
+    </div>
+    <div class="cta-contact-info">
+      <div class="contact-item">📍 Magyarország</div>
+      <div class="contact-item">✉️ <a href="mailto:david.kalauz@gmail.com">david.kalauz@gmail.com</a></div>
+      <div class="contact-item">💬 Általában 24 órán belül válaszolunk</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="nav-logo">KDigital<span>.</span></a>
+  <span>© 2026 KDigital, Minden jog fenntartva.</span>
+  <span>Weboldal & Marketing</span>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+
+  // Nav scroll effect
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      nav.style.boxShadow = '0 2px 30px rgba(0,0,0,0.08)';
+    } else {
+      nav.style.boxShadow = 'none';
+    }
+  });
+</script>
+</body>
+</html>
